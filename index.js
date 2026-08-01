@@ -16,7 +16,14 @@ app.get("/", (req, res) => {
 
 // Login route (OAuth2 will be added next)
 app.get("/login", (req, res) => {
-    res.send("Discord OAuth2 will be added here.");
+    const params = new URLSearchParams({
+        client_id: process.env.CLIENT_ID,
+        redirect_uri: process.env.REDIRECT_URI,
+        response_type: "code",
+        scope: "identify email"
+    });
+
+    res.redirect(`https://discord.com/oauth2/authorize?${params.toString()}`);
 });
 
 // Callback route (OAuth2 will be added next)
